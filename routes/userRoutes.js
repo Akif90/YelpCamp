@@ -1,0 +1,27 @@
+const express = require("express");
+const router = express.Router();
+const User = require("../models/user");
+const wrapError = require("../helpers/wrapAsync");
+const passport = require("passport");
+const returnTo = require("../helpers/returnTo");
+const user = require("../controllers/user");
+
+router.get("/register", user.renderRegisterForm);
+
+router.post("/register", wrapError(user.register));
+
+router.get("/login", user.renderLoginForm);
+
+router.post(
+  "/login",
+  returnTo,
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
+  user.login
+);
+
+router.get("/logout", user.logout);
+
+module.exports = router;
