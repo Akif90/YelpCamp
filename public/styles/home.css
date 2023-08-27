@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url(https://images.unsplash.com/photo-1533873984035-25970ab07461?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80);
+  background-size: cover;
+  height: 100vh;
+}
+
+.nav-link {
+  padding: 0.25rem 0;
+  font-weight: 500;
+  font-size: larger;
+  margin-left: 1rem;
+  border-bottom: 0.25rem solid transparent;
+}
+
+.nav-link:hover {
+  border-bottom-color: rgba(7, 52, 62, 0.5);
+}
+.nav-link.active {
+  color: white;
+  border-bottom-color: white;
+}
+
+.btn:hover {
+  box-shadow: 3px 4px 2px 3px rgba(55, 84, 60, 0.467);
+}
