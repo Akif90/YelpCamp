@@ -22,6 +22,19 @@ router.post(
   user.login
 );
 
+router.get("/login/google", passport.authenticate("google"));
+
+router.get(
+  "/oauth2/redirect/google",
+  passport.authenticate("google", {
+    failureRedirect: "/login",
+    failureMessage: true,
+  }),
+  (req, res) => {
+    res.redirect("/campgrounds");
+  }
+);
+
 router.get("/logout", user.logout);
 
 module.exports = router;
