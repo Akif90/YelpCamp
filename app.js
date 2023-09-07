@@ -56,8 +56,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate("session"));
 passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 passport.use(
   new GoogleStrategy(
     {
@@ -67,13 +65,20 @@ passport.use(
       scope: ["profile"],
     },
     async (issuer, profile, cb) => {
-      const user = await User.find({googleId: profile.id});
+      let user = await User.findOne({googleId: profile.id});
       if (!user) {
-        await User.create({name: profile.displayName, googleId: profile.id});
-      } else return cb(null, user);
+        user = await User.create({
+          name: profile.displayName,
+          googleId: profile.id,
+        });
+        console.log(user);
+      }
+      cb(null, user);
     }
   )
 );
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.user = req.user;
