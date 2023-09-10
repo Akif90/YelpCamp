@@ -45,7 +45,7 @@
           <small class="text-body-secondary"><%= ground.location %></small>
         </p>
 
-        <% if(user && user.id === ground.owner.id ){ %>
+        <% if(user && user._id === ground.owner.id ){ %>
         <a href="/campgrounds/<%= ground._id %>/edit" class="btn btn-info"
           >Edit</a
         >
@@ -126,7 +126,7 @@
             </p>
           </fieldset>
         </div>
-        <% if(user && user._id.equals(review.owner.id) ){ %>
+        <% if(user && user._id=== review.owner.id ){ %>
         <form
           action="/campgrounds/<%= ground._id %>/reviews/<%= review._id %>?_method=DELETE"
           method="POST"

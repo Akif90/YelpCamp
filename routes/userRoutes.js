@@ -7,7 +7,7 @@ const returnTo = require("../helpers/returnTo");
 const user = require("../controllers/user");
 passport.serializeUser(function (user, cb) {
   process.nextTick(function () {
-    cb(null, {id: user.id, username: user.username, name: user.name});
+    cb(null, {_id: user.id, username: user.username, name: user.name});
   });
 });
 
