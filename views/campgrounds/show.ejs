@@ -45,7 +45,7 @@
           <small class="text-body-secondary"><%= ground.location %></small>
         </p>
 
-        <% if(user && user._id.equals(ground.owner.id) ){ %>
+        <% if(user && user.id === ground.owner.id ){ %>
         <a href="/campgrounds/<%= ground._id %>/edit" class="btn btn-info"
           >Edit</a
         >

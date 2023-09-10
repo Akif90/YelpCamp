@@ -68,7 +68,7 @@ passport.use(
       let user = await User.findOne({googleId: profile.id});
       if (!user) {
         user = await User.create({
-          name: profile.displayName,
+          username: profile.displayName,
           googleId: profile.id,
         });
         console.log(user);
@@ -97,6 +97,7 @@ app.use("/", userRoutes);
 
 app.get("/", (req, res) => {
   res.render("home.ejs");
+  console.log(req.user);
 });
 
 app.all("*", (req, res, next) => {

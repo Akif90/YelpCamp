@@ -5,7 +5,17 @@ const wrapError = require("../helpers/wrapAsync");
 const passport = require("passport");
 const returnTo = require("../helpers/returnTo");
 const user = require("../controllers/user");
+passport.serializeUser(function (user, cb) {
+  process.nextTick(function () {
+    cb(null, {id: user.id, username: user.username, name: user.name});
+  });
+});
 
+passport.deserializeUser(function (user, cb) {
+  process.nextTick(function () {
+    return cb(null, user);
+  });
+});
 router.get("/register", user.renderRegisterForm);
 
 router.post("/register", wrapError(user.register));
