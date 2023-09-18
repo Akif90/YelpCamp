@@ -5,9 +5,10 @@ const wrapError = require("../helpers/wrapAsync");
 const passport = require("passport");
 const returnTo = require("../helpers/returnTo");
 const user = require("../controllers/user");
+
 passport.serializeUser(function (user, cb) {
   process.nextTick(function () {
-    cb(null, {_id: user.id, username: user.username, name: user.name});
+    cb(null, {_id: user.id, username: user.username});
   });
 });
 

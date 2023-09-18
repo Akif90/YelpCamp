@@ -21,7 +21,7 @@ module.exports.createNewCampground = async (req, res, next) => {
     .forwardGeocode({query: req.body.location, limit: 1})
     .send();
   const ground = new Campground(req.body);
-  ground.owner = req.user.id;
+  ground.owner = req.user._id;
   ground.images = arrayImages;
   ground.geometry = geoData.body.features[0].geometry;
   await ground.save();
