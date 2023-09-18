@@ -20,6 +20,7 @@ const flash = require("connect-flash");
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const GoogleStrategy = require("passport-google-oidc");
 
 const MongoStore = require("connect-mongo");
 
@@ -53,7 +54,29 @@ app.use(session(sessionConfig));
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.authenticate("session"));
 passport.use(new LocalStrategy(User.authenticate()));
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env["GOOGLE_CLIENT_ID"],
+      clientSecret: process.env["GOOGLE_CLIENT_SECRET"],
+      callbackURL: "/oauth2/redirect/google",
+      scope: ["profile"],
+    },
+    async (issuer, profile, cb) => {
+      let user = await User.findOne({googleId: profile.id});
+      if (!user) {
+        user = await User.create({
+          username: profile.displayName,
+          googleId: profile.id,
+        });
+        console.log(user);
+      }
+      cb(null, user);
+    }
+  )
+);
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 

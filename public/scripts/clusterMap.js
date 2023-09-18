@@ -105,7 +105,7 @@ map.on("load", () => {
 
     new mapboxgl.Popup()
       .setLngLat(coordinates)
-      .setHTML(`${popUpText}`)
+      .setHTML(`<h5>${popUpText}</h5> `)
       .addTo(map);
   });
 
